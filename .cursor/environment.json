@@ -1,0 +1,16 @@
+{
+  "name": "NextJsEcommerceWebsiteWithoutAPI",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev-server",
+      "command": "npm run dev"
+    }
+  ],
+  "ports": [
+    {
+      "name": "next-dev",
+      "port": 3000
+    }
+  ]
+}
