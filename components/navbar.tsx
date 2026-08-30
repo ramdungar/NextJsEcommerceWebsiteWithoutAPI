@@ -1,35 +1,53 @@
-"use client";
-
 import Link from "next/link";
-import { useCart } from "@/components/cart-context";
+import { getAllCategories } from "@/lib/data";
+import { SearchBar } from "@/components/search-bar";
+import { CartButton } from "@/components/cart-button";
+import { WishlistNavLink } from "@/components/wishlist-nav-link";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 
-export function Navbar() {
-  const { totalItems } = useCart();
+export async function Navbar() {
+  const categories = await getAllCategories();
 
   return (
-    <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-        <Link href="/" className="text-lg font-bold text-slate-900">
-          Nimbus<span className="text-brand">Shop</span>
+    <header className="sticky top-0 z-30 border-b border-neutral-200 bg-white/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/80">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <MobileNav categories={categories} />
+        <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight text-neutral-900 dark:text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900">
+            S
+          </span>
+          <span className="hidden sm:inline">Storefront</span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm font-medium text-slate-600">
-          <Link href="/" className="hover:text-slate-900">
-            Products
+
+        <div className="mx-2 hidden max-w-md flex-1 md:block">
+          <SearchBar />
+        </div>
+
+        <nav className="ml-auto hidden items-center gap-5 text-sm font-medium text-neutral-700 lg:flex dark:text-neutral-200">
+          <Link href="/products" className="hover:text-neutral-950 dark:hover:text-white">
+            Shop
           </Link>
-          <Link
-            href="/cart"
-            className="relative flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-white transition hover:bg-brand-dark"
-            data-testid="cart-link"
-          >
-            <span>Cart</span>
-            <span
-              className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-xs font-bold text-brand"
-              data-testid="cart-count"
+          {categories.slice(0, 4).map((category) => (
+            <Link
+              key={category.slug}
+              href={`/products?category=${category.slug}`}
+              className="hover:text-neutral-950 dark:hover:text-white"
             >
-              {totalItems}
-            </span>
-          </Link>
+              {category.name}
+            </Link>
+          ))}
         </nav>
+
+        <div className="ml-auto flex items-center gap-1 lg:ml-4">
+          <ThemeToggle />
+          <WishlistNavLink />
+          <CartButton />
+        </div>
+      </div>
+
+      <div className="border-t border-neutral-100 px-4 pb-3 pt-2 md:hidden dark:border-neutral-900">
+        <SearchBar />
       </div>
     </header>
   );

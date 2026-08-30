@@ -1,46 +1,51 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { formatPrice, type Product } from "@/lib/products";
-import { useCart } from "@/components/cart-context";
+import type { Product } from "@/lib/types";
+import { PriceTag } from "@/components/price-tag";
+import { StarRating } from "@/components/star-rating";
+import { WishlistButton } from "@/components/wishlist-button";
+import { Badge } from "@/components/ui/badge";
+import { AddToCartButton } from "@/components/add-to-cart-button";
 
 export function ProductCard({ product }: { product: Product }) {
-  const { addToCart } = useCart();
+  const outOfStock = product.stock <= 0;
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
       <Link
-        href={`/products/${product.id}`}
-        className="flex h-40 items-center justify-center bg-slate-100 text-6xl"
+        href={`/products/${product.slug}`}
+        className="relative block aspect-square overflow-hidden bg-neutral-100 dark:bg-neutral-800"
       >
-        <span aria-hidden>{product.emoji}</span>
+        <Image
+          src={product.images[0]}
+          alt={product.name}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+          {product.isNew && <Badge variant="accent">New</Badge>}
+          {product.compareAtPrice && !outOfStock && <Badge variant="success">Sale</Badge>}
+          {outOfStock && <Badge variant="outline" className="bg-white dark:bg-neutral-900">Sold out</Badge>}
+        </div>
       </Link>
+      <WishlistButton
+        slug={product.slug}
+        productName={product.name}
+        className="absolute right-3 top-3"
+      />
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <span className="text-xs font-semibold uppercase tracking-wide text-brand">
-          {product.category}
-        </span>
-        <Link
-          href={`/products/${product.id}`}
-          className="font-semibold text-slate-900 hover:text-brand"
-        >
+        <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+          {product.brand}
+        </p>
+        <Link href={`/products/${product.slug}`} className="line-clamp-2 font-medium text-neutral-900 hover:underline dark:text-white">
           {product.name}
         </Link>
-        <p className="line-clamp-2 text-sm text-slate-500">
-          {product.description}
-        </p>
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="text-lg font-bold text-slate-900">
-            {formatPrice(product.price)}
-          </span>
-          <button
-            type="button"
-            onClick={() => addToCart(product.id)}
-            className="rounded-lg bg-brand px-3 py-2 text-sm font-medium text-white transition hover:bg-brand-dark"
-            data-testid={`add-${product.id}`}
-          >
-            Add to cart
-          </button>
+        <StarRating rating={product.rating} reviewCount={product.reviewCount} />
+        <div className="mt-auto flex items-center justify-between gap-2 pt-2">
+          <PriceTag price={product.price} compareAtPrice={product.compareAtPrice} currency={product.currency} />
         </div>
+        <AddToCartButton product={product} size="sm" className="w-full" />
       </div>
     </div>
   );

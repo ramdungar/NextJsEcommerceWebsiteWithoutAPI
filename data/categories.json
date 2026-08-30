@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "electronics",
+    "name": "Electronics",
+    "description": "Headphones, wearables, and gadgets for modern living.",
+    "accent": "#6366f1",
+    "image": "/categories/electronics.svg"
+  },
+  {
+    "slug": "fashion",
+    "name": "Fashion",
+    "description": "Timeless staples and everyday essentials.",
+    "accent": "#ec4899",
+    "image": "/categories/fashion.svg"
+  },
+  {
+    "slug": "home-living",
+    "name": "Home & Living",
+    "description": "Cozy, considered pieces for every room.",
+    "accent": "#f59e0b",
+    "image": "/categories/home-living.svg"
+  },
+  {
+    "slug": "beauty",
+    "name": "Beauty & Personal Care",
+    "description": "Clean formulas and daily self-care rituals.",
+    "accent": "#d946ef",
+    "image": "/categories/beauty.svg"
+  },
+  {
+    "slug": "sports",
+    "name": "Sports & Outdoors",
+    "description": "Gear built for movement, trail, and training.",
+    "accent": "#10b981",
+    "image": "/categories/sports.svg"
+  },
+  {
+    "slug": "books-stationery",
+    "name": "Books & Stationery",
+    "description": "Journals, novels, and tools for a focused mind.",
+    "accent": "#0ea5e9",
+    "image": "/categories/books-stationery.svg"
+  }
+]

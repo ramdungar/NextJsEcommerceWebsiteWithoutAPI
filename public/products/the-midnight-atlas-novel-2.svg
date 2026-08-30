@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="bg" gradientTransform="rotate(135)">
+      <stop offset="0%" stop-color="rgb(57, 181, 237)" />
+      <stop offset="100%" stop-color="rgb(9, 107, 151)" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)" />
+  <circle cx="640" cy="140" r="220" fill="white" opacity="0.06" />
+  <circle cx="120" cy="700" r="180" fill="white" opacity="0.06" />
+  <circle cx="400" cy="400" r="150" fill="white" opacity="0.12" />
+  <text x="400" y="418" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="92" font-weight="700" fill="white" opacity="0.92">TM</text>
+  <text x="400" y="700" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="30" font-weight="600" fill="white" opacity="0.85">
+    <tspan x="400" dy="0">The Midnight Atlas</tspan>
+  </text>
+</svg>
